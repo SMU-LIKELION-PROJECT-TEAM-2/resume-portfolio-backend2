@@ -21,6 +21,7 @@ public class TestController {
 
     @GetMapping("/b")
     public ResponseEntity<?> test3() {
+
         return ResponseEntity.ok("앙 기모띠3");
     }
 }
