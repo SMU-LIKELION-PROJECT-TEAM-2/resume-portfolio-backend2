@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: portmate
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:portmate}?useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client_id: ${KAKAO_CLIENT_ID}
+            redirect_uri: ${KAKAO_REDIRECT_URI:http://localhost:8080/login/oauth2/code/kakao}
+
+jwt:
+  secret: ${JWT_SECRET_KEY}
