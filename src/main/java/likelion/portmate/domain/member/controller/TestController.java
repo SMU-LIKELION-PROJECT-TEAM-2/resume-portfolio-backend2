@@ -18,4 +18,9 @@ public class TestController {
     public ResponseEntity<?> test2() {
         return ResponseEntity.ok("앙 기모띠2");
     }
+
+    @GetMapping("/b")
+    public ResponseEntity<?> test3() {
+        return ResponseEntity.ok("앙 기모띠3");
+    }
 }
