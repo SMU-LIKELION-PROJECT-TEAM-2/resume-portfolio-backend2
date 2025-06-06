@@ -40,7 +40,8 @@ public class SecurityConfig {
                                 "/login",
                                 "/auth/signup",
                                 "/auth/login",
-                                "/auth/kakao/callback"
+                                "/auth/kakao/callback",
+                                "/test"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authProvider())
