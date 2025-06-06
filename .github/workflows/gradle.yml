@@ -60,7 +60,19 @@ jobs:
 
       # 3. 최신 이미지를 컨테이너화하여 실행시킵니다
       - name: docker run new container
-        run: sudo docker run --name port_mate --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/port_mate
+        run: |
+          sudo docker run -d \
+            -p 8080:8080 \
+            -e KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }} \
+            -e KAKAO_REDIRECT_URI=${{ secrets.KAKAO_REDIRECT_URI }} \
+            -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
+            -e DB_HOST=${{ secrets.DB_HOST }} \
+            -e DB_PORT=3306 \
+            -e DB_NAME=portmate \
+            -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
+            -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            --name port_mate \
+            ${{ secrets.DOCKERHUB_USERNAME }}/port_mate
 
       # 4. 미사용 이미지를 정리합니다
       - name: delete old docker image
