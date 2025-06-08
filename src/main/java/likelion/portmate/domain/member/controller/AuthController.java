@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")          // <-- 꼭 /auth 로 시작
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements AuthDocsController {
 
     private final MemberService memberService;
 
@@ -24,4 +24,11 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequestDto dto) {
         return ResponseEntity.ok(memberService.login(dto));
     }
+
+    @PostMapping("/signup-check-duplicate-id")
+    public ResponseEntity<?> signupCheckDuplicateId(@RequestParam String loginId) {
+        memberService.validateDuplicateLoginId(loginId);
+        return ResponseEntity.ok().build();
+    }
+
 }

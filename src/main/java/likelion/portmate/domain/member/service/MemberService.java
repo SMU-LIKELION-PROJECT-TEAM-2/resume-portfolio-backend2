@@ -2,6 +2,10 @@ package likelion.portmate.domain.member.service;
 
 import likelion.portmate.domain.kakao.dto.KakaoUserInfoResponseDto;
 import likelion.portmate.domain.kakao.service.KakaoService;
+import likelion.portmate.domain.member.controller.exception.DuplicateEmailException;
+import likelion.portmate.domain.member.controller.exception.DuplicateLoginIdException;
+import likelion.portmate.domain.member.controller.exception.LoginFailedException;
+import likelion.portmate.domain.member.controller.exception.MemberNotFoundException;
 import likelion.portmate.domain.member.dto.KakaoLoginDto;
 import likelion.portmate.domain.member.dto.LoginRequestDto;
 import likelion.portmate.domain.member.dto.SignupRequestDto;
@@ -12,8 +16,6 @@ import likelion.portmate.domain.member.repository.MemberRepository;
 import likelion.portmate.global.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,13 +29,10 @@ public class MemberService {
     private final PasswordEncoder encoder;
     private final JwtUtil jwt;
 
-    /* 1) 회원가입 */
     @Transactional
     public void signup(SignupRequestDto d) {
-        if (repo.findByLoginId(d.getLoginId()).isPresent())
-            throw new IllegalArgumentException("중복 ID");
         if (repo.findByEmail(d.getEmail()).isPresent())
-            throw new IllegalArgumentException("중복 이메일");
+            throw new DuplicateEmailException();
 
         repo.save(Member.createLocal(
                 d.getLoginId(),
@@ -46,16 +45,16 @@ public class MemberService {
     @Transactional
     public TokenResponseDto login(LoginRequestDto d) {
         Member m = repo.findByLoginId(d.getLoginId())
-                .orElseThrow(() -> new IllegalArgumentException("가입 안됨"));
+                .orElseThrow(MemberNotFoundException::new);
 
         if (m.getSocialType() != SocialType.LOCAL ||
-                !encoder.matches(d.getPassword(), m.getPassword()))
-            throw new IllegalArgumentException("로그인 실패");
+                !encoder.matches(d.getPassword(), m.getPassword())) {
+            throw new LoginFailedException();
+        }
 
         return issueTokens(m);
     }
 
-    /* 3) 카카오 로그인 */
     @Transactional
     public KakaoLoginDto loginByKakao(String code, KakaoService kakao) {
 
@@ -81,5 +80,11 @@ public class MemberService {
         String rt = jwt.createRefreshToken(member.getId(), member.getLoginId());
         member.updateRefreshToken(rt);
         return new TokenResponseDto(at, rt);
+    }
+
+    public void validateDuplicateLoginId(String loginId) {
+        if (repo.findByLoginId(loginId).isPresent()) {
+            throw new DuplicateLoginIdException();
+        }
     }
 }
