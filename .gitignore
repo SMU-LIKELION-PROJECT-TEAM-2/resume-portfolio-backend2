@@ -43,4 +43,3 @@ out/
 **/._.DS_Store
 
 src/main/resources/application-local.yml
-test/
