@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth/kakao")
-public class KakaoLoginController {
+public class KakaoLoginController implements KakaoLoginDocsController {
 
     private final KakaoService kakaoService;
     private final MemberService memberService;
