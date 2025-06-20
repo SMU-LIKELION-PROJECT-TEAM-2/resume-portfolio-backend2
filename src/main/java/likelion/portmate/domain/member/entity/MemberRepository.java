@@ -1,14 +1,16 @@
 package likelion.portmate.domain.member.entity;
 
+import java.util.Optional;
+
 public interface MemberRepository {
 
-    void save(Member member);
+    Member save(Member member);
 
-    Member findByLoginId(String loginId);
+    Optional<Member> findByLoginId(String loginId);
 
-    Member findByMemberId(Long memberId);
+    Optional<Member> findByMemberId(Long memberId);
 
-    Member findByEmail(String email);
+    Optional<Member> findByEmail(String email);
 
     boolean existsByLoginId(String loginId);
 

@@ -1,11 +1,12 @@
 package likelion.portmate.domain.member.repository;
 
-import likelion.portmate.domain.member.controller.exception.DuplicateLoginIdException;
 import likelion.portmate.domain.member.controller.exception.MemberNotFoundException;
 import likelion.portmate.domain.member.entity.Member;
 import likelion.portmate.domain.member.entity.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Repository
@@ -14,26 +15,24 @@ public class MemberRepositoryImpl implements MemberRepository {
     private final MemberJpaRepository memberJpaRepository;
 
     @Override
-    public void save(Member member) {
+    public Member save(Member member) {
         memberJpaRepository.save(member);
+        return member;
     }
 
     @Override
-    public Member findByLoginId(String loginId) {
-        return memberJpaRepository.findByLoginId(loginId)
-                .orElseThrow(MemberNotFoundException::new);
+    public Optional<Member> findByLoginId(String loginId) {
+        return memberJpaRepository.findByLoginId(loginId);
     }
 
     @Override
-    public Member findByMemberId(Long memberId) {
-        return memberJpaRepository.findById(memberId)
-                .orElseThrow(MemberNotFoundException::new);
+    public Optional<Member> findByMemberId(Long memberId) {
+        return memberJpaRepository.findById(memberId);
     }
 
     @Override
-    public Member findByEmail(String email) {
-        return memberJpaRepository.findByEmail(email)
-                .orElseThrow(MemberNotFoundException::new);
+    public Optional<Member> findByEmail(String email) {
+        return memberJpaRepository.findByEmail(email);
     }
 
     @Override
