@@ -13,7 +13,7 @@ import likelion.portmate.domain.member.dto.response.MemberSaveResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Tag(name = "Member", description = "회원가입 · 로그인 API")
+@Tag(name = "Member", description = "회원가입 · 아이디 중복 검사 API")
 public interface MemberDocsController {
 
     @Operation(summary = "회원가입", description = "새로운 사용자를 등록합니다.")
