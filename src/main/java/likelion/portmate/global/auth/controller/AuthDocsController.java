@@ -24,10 +24,6 @@ public interface AuthDocsController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = LoginResultRequest.class)
                     )
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    description = "아이디 또는 비밀번호 오류"
             )
     })
     ResponseEntity<LoginResultResponse> login(@Valid @RequestBody LoginResultRequest request);

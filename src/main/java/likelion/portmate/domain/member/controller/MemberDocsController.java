@@ -25,10 +25,6 @@ public interface MemberDocsController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = MemberSaveResponse.class)
                     )
-            ),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "유효성 검사 실패"
             )
     })
     ResponseEntity<MemberSaveResponse> signUp(@RequestBody MemberSaveRequest request);
