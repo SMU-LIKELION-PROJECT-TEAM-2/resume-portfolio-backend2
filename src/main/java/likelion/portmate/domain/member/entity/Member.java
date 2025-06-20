@@ -16,6 +16,7 @@ import static jakarta.persistence.EnumType.STRING;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "members")
 @Entity
 public class Member extends BaseTimeEntity {
 
