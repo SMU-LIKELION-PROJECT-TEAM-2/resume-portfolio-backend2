@@ -1,11 +1,9 @@
 package likelion.portmate.domain.kakao.controller;
 
 import likelion.portmate.domain.kakao.service.KakaoService;
-import likelion.portmate.domain.member.dto.KakaoLoginDto;
 import likelion.portmate.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +22,7 @@ public class KakaoLoginController implements KakaoLoginDocsController {
     @GetMapping("/callback")
     public ResponseEntity<KakaoLoginDto> callback(@RequestParam("code") String code) {
         KakaoLoginDto dto = memberService.loginByKakao(code, kakaoService);
-
+//        dto.getToken().getAccessToken()
         return ResponseEntity.ok(dto);
     }
 }

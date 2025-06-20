@@ -1,0 +1,30 @@
+package likelion.portmate.domain.member.controller;
+
+import likelion.portmate.domain.member.dto.request.MemberSaveRequest;
+import likelion.portmate.domain.member.dto.response.MemberSaveResponse;
+import likelion.portmate.domain.member.service.MemberService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RequestMapping("/members")
+@RequiredArgsConstructor
+@RestController
+public class MemberController implements MemberDocsController {
+
+    private final MemberService memberService;
+
+    @PostMapping("/signup")
+    public ResponseEntity<MemberSaveResponse> signUp(@RequestBody MemberSaveRequest request) {
+        MemberSaveResponse response = memberService.signUp(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/signup-check-duplicate-login-id")
+    public ResponseEntity<?> signupCheckDuplicateId(@RequestParam String loginId) {
+        memberService.validateLoginId(loginId);
+        return ResponseEntity.ok().build();
+    }
+
+}
