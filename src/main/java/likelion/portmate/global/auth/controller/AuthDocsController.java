@@ -12,7 +12,7 @@ import likelion.portmate.global.auth.dto.request.LoginResultRequest;
 import likelion.portmate.global.auth.dto.response.LoginResultResponse;
 import org.springframework.http.ResponseEntity;
 
-@Tag(name = "Member", description = "일반 로그인 · 소셜 로그인 API")
+@Tag(name = "Login", description = "일반 로그인 · 소셜 로그인 API")
 public interface AuthDocsController {
 
     @Operation(summary = "일반 로그인", description = "loginId와 password로 로그인하고 JWT 토큰을 반환합니다.")
