@@ -34,7 +34,7 @@ public record BoardSaveRequest(
 
         @Schema(
                 description = "직업 카테고리",
-                example = "개발자",
+                example = "DEVELOPMENT",
                 requiredMode = REQUIRED
         )
         @NotNull(message = "직업 카테고리를 선택해 주세요.")
