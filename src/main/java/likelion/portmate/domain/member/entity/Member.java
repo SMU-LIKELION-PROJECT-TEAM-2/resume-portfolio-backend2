@@ -1,7 +1,10 @@
 package likelion.portmate.domain.member.entity;
 
 import jakarta.persistence.*;
+import likelion.portmate.domain.interestfield.entity.InterestField;
+import likelion.portmate.domain.job.entity.Job;
 import likelion.portmate.domain.member.controller.exception.LoginFailedException;
+import likelion.portmate.domain.skill.entity.Skill;
 import likelion.portmate.global.auth.service.dto.AuthAttributes;
 import likelion.portmate.global.domain.BaseTimeEntity;
 import lombok.AccessLevel;
@@ -40,6 +43,22 @@ public class Member extends BaseTimeEntity {
     @Enumerated(STRING)
     private LoginProvider loginProvider;
 
+    @Enumerated(STRING)
+    private DepartmentCategory departmentCategory;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "job_id")
+    private Job job;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "interest_field_id")
+    private InterestField interestField;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "skill_id")
+    private Skill skill;
+
+
     @Builder
     private Member(
             String loginId,
@@ -55,6 +74,18 @@ public class Member extends BaseTimeEntity {
         this.username = username;
         this.externalId = externalId;
         this.loginProvider = loginProvider;
+    }
+
+    public void selectCareerProfile(
+            DepartmentCategory departmentCategory,
+            Job job,
+            InterestField interestField,
+            Skill skill
+    ) {
+        this.departmentCategory = departmentCategory;
+        this.job = job;
+        this.interestField = interestField;
+        this.skill = skill;
     }
 
     public void checkPassword(PasswordEncoder passwordEncoder, String password) {

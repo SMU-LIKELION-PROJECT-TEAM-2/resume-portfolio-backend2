@@ -1,8 +1,11 @@
 package likelion.portmate.domain.member.controller;
 
+import jakarta.validation.Valid;
 import likelion.portmate.domain.member.dto.request.MemberSaveRequest;
+import likelion.portmate.domain.member.dto.request.MemberSelectCareerProfileSaveRequest;
 import likelion.portmate.domain.member.dto.response.MemberSaveResponse;
 import likelion.portmate.domain.member.service.MemberService;
+import likelion.portmate.global.annotation.MemberId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +28,15 @@ public class MemberController implements MemberDocsController {
     public ResponseEntity<?> signupCheckDuplicateId(@RequestParam String loginId) {
         memberService.validateLoginId(loginId);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/select")
+    public ResponseEntity<Void> select(
+            @MemberId Long memberId,
+            @Valid @RequestBody MemberSelectCareerProfileSaveRequest request
+    ) {
+        memberService.selectCareerProfile(memberId, request);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
