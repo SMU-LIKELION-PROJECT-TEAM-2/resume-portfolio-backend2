@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import likelion.portmate.domain.member.dto.request.MemberSaveRequest;
 import likelion.portmate.domain.member.dto.request.MemberSelectCareerProfileSaveRequest;
 import likelion.portmate.domain.member.dto.response.MemberSaveResponse;
+import likelion.portmate.global.annotation.MemberId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -48,7 +49,7 @@ public interface MemberDocsController {
             @ApiResponse(responseCode = "204", description = "선택 완료")
     })
     ResponseEntity<Void> select(
-            @Parameter(description = "회원 ID", example = "1", required = true)
+            @MemberId
             Long memberId,
 
             @RequestBody(description = "커리어 프로필 선택 요청", required = true)

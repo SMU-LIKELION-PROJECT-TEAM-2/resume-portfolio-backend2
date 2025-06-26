@@ -6,8 +6,12 @@ import jakarta.validation.constraints.NotNull;
 public record MemberSelectCareerProfileSaveRequest(
 
         @Schema(
-                description = "직군 (예: 개발자, 디자인 등)",
-                example = "개발자"
+                description = "직군 (예: DEVELOPMENT,\n" +
+                        "    DESIGN,\n" +
+                        "    MARKETING,\n" +
+                        "    MANAGEMENT_HR,\n" +
+                        "    SALES 등)",
+                example = "DEVELOPMENT"
         )
         @NotNull(message = "직군을 선택해 주세요.")
         String departmentCategory,

@@ -28,7 +28,7 @@ public interface JobDocsController {
             )
     })
     ResponseEntity<List<JobInfoResponse>> getJobs(
-            @Parameter(description = "직업 카테고리", example = "DEVELOPMENT")
+            @Parameter(description = "직업 카테고리", example = "DEVELOPMENT 선택 -> 소프트웨어 엔지니어, 프론트엔드 개발자, 백엔드 개발자 등등 보여짐")
             @RequestParam("type") String departmentCategory
     );
 
@@ -44,7 +44,12 @@ public interface JobDocsController {
             )
     })
     ResponseEntity<List<JobInfoResponse>> searchJobs(
-            @Parameter(description = "검색 키워드 리스트", example = "[\"개발자\", \"디자인\"]")
+            @Parameter(description = "검색 키워드 리스트", example = """
+                    ["DEVELOPMENT,
+                        DESIGN,
+                        MARKETING,
+                        MANAGEMENT_HR,
+                        SALES"]""")
             @RequestParam List<String> keywords
     );
 }
