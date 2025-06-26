@@ -50,7 +50,6 @@ public class SwaggerConfig {
 
     private List<Server> initializeServers() {
         return PROFILE_SERVER_URL_MAP.entrySet().stream()
-                .filter(entry -> environment.matchesProfiles(entry.getKey()))
                 .map(entry -> openApiServer(entry.getValue(), "PORTMATE API " + entry.getKey().toUpperCase()))
                 .collect(Collectors.toList());
     }
