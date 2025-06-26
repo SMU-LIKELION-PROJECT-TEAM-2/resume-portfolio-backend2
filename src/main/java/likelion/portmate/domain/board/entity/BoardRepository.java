@@ -10,4 +10,7 @@ public interface BoardRepository {
     Page<Board> findAllByBoardCategory(BoardCategory boardCategory, Pageable pageable);
 
     Page<Board> findAll(Pageable pageable);
+
+    Board findByBoardId(Long boardId);
+
 }

@@ -83,4 +83,18 @@ public class BoardService {
         return PageableResponse.of(pageable, boardResponses);
     }
 
+    @Transactional(readOnly = true)
+    public BoardInfoResponse getBoardDetail(Long boardId) {
+        Board board = boardRepository.findByBoardId(boardId);
+
+        return BoardInfoResponse.builder()
+                .username(board.getMember().getUsername())
+                .createdAt(board.getCreatedAt())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .boardCategory(board.getBoardCategory().name())
+                .departmentCategory(board.getDepartmentCategory().name())
+                .build();
+    }
+
 }
