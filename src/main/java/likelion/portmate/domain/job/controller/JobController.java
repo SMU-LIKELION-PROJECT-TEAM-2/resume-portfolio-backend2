@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/jobs")
 @RestController
-public class JobController {
+public class JobController implements JobDocsController{
 
     private final JobService jobService;
 

@@ -11,6 +11,7 @@ import likelion.portmate.domain.board.dto.request.BoardSaveRequest;
 import likelion.portmate.domain.board.dto.response.BoardInfoResponse;
 import likelion.portmate.domain.board.dto.response.BoardSaveResponse;
 import likelion.portmate.domain.board.entity.BoardCategory;
+import likelion.portmate.global.annotation.MemberId;
 import likelion.portmate.global.response.PageableResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +34,7 @@ public interface BoardDocsController {
             )
     })
     ResponseEntity<BoardSaveResponse> saveBoard(
-            @Parameter(description = "작성자 ID", example = "1") Long memberId,
+            @MemberId Long memberId,
             @Valid @RequestBody BoardSaveRequest boardSaveRequest
     );
 
