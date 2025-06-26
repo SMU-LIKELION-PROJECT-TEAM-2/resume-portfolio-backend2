@@ -52,4 +52,12 @@ public class BoardController implements BoardDocsController{
         return new ResponseEntity<>(boardResponses, HttpStatus.OK);
     }
 
+    @GetMapping("/{boardId}")
+    public ResponseEntity<BoardInfoResponse> getBoard(
+            @PathVariable Long boardId
+    ) {
+        BoardInfoResponse boardInfoResponse = boardService.getBoardDetail(boardId);
+        return new ResponseEntity<>(boardInfoResponse, HttpStatus.OK);
+    }
+
 }

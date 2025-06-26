@@ -1,5 +1,6 @@
 package likelion.portmate.domain.board.repository;
 
+import likelion.portmate.domain.board.controller.exception.BoardNotFoundException;
 import likelion.portmate.domain.board.entity.Board;
 import likelion.portmate.domain.board.entity.BoardCategory;
 import likelion.portmate.domain.board.entity.BoardRepository;
@@ -28,5 +29,13 @@ public class BoardRepositoryImpl implements BoardRepository {
     public Page<Board> findAll(Pageable pageable) {
         return boardJpaRepository.findAll(pageable);
     }
+
+    @Override
+    public Board findByBoardId(Long boardId) {
+        return boardJpaRepository.findById(boardId)
+                .orElseThrow(BoardNotFoundException::new);
+    }
+
+
 
 }
