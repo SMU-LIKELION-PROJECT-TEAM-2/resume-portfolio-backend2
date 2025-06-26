@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,5 +21,11 @@ public class Skill {
     private String favoriteSkillEng;
 
     private String favoriteSkillKor;
+
+    @Builder
+    public Skill(String favoriteSkillEng, String favoriteSkillKor) {
+        this.favoriteSkillEng = favoriteSkillEng;
+        this.favoriteSkillKor = favoriteSkillKor;
+    }
 
 }

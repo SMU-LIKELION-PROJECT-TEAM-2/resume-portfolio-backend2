@@ -9,4 +9,5 @@ public interface SkillRepository {
     List<SkillInfoResponse> findAllByFavoriteSkillContaining(List<String> keywords);
 
     Skill findBySkillId(Long skillId);
+
 }
