@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import likelion.portmate.domain.member.dto.request.BannerUpdateRequest;
+import likelion.portmate.domain.member.dto.request.MemberBannerUpdateRequest;
 import likelion.portmate.domain.member.dto.request.MemberSaveRequest;
 import likelion.portmate.domain.member.dto.request.MemberSelectCareerProfileSaveRequest;
 import likelion.portmate.domain.member.dto.response.MemberSaveResponse;
@@ -64,6 +64,6 @@ public interface MemberDocsController {
     ResponseEntity<Void> updateBanner(
             @MemberId Long memberId,
             @RequestBody(description = "배너 이미지 수정 DTO", required = true)
-            BannerUpdateRequest request
+            MemberBannerUpdateRequest request
     );
 }

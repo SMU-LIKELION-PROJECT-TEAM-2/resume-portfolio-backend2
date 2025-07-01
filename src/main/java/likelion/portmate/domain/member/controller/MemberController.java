@@ -1,9 +1,10 @@
 package likelion.portmate.domain.member.controller;
 
 import jakarta.validation.Valid;
-import likelion.portmate.domain.member.dto.request.BannerUpdateRequest;
+import likelion.portmate.domain.member.dto.request.MemberBannerUpdateRequest;
 import likelion.portmate.domain.member.dto.request.MemberSaveRequest;
 import likelion.portmate.domain.member.dto.request.MemberSelectCareerProfileSaveRequest;
+import likelion.portmate.domain.member.dto.response.MemberProfileViewResponse;
 import likelion.portmate.domain.member.dto.response.MemberSaveResponse;
 import likelion.portmate.domain.member.service.MemberService;
 import likelion.portmate.global.annotation.MemberId;
@@ -43,7 +44,7 @@ public class MemberController implements MemberDocsController {
     @PatchMapping("/profile/banner")
     public ResponseEntity<Void> updateBanner(
             @MemberId Long memberId,
-            @Valid @RequestBody BannerUpdateRequest request
+            @Valid @RequestBody MemberBannerUpdateRequest request
     ) {
         memberService.updateBannerImageUrl(memberId, request.bannerImageUrl());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
