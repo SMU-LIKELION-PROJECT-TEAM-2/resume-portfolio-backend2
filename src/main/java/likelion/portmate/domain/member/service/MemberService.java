@@ -72,6 +72,12 @@ public class MemberService {
         );
     }
 
+    public void updateBannerImageUrl(Long memberId, String bannerImageUrl) {
+        Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(MemberNotFoundException::new);
+        member.changeBannerImageUrl(bannerImageUrl);
+    }
+
     private void validateSignUp(String email, String username) {
         validateEmail(email);
         validateUsername(username);
