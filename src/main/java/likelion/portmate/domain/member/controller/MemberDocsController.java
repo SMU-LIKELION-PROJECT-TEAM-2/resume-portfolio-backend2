@@ -85,8 +85,13 @@ public interface MemberDocsController {
             @Parameter(hidden = true) @MemberId Long memberId
     );
 
-
-    @Operation(summary = "내 프로필 수정", description = "이름, 자기소개, 주소, 커리어 수정")
+    @Operation(summary = "내 프로필 수정", description = """
+        회원의 이름, 소개, 주소, 커리어 이력을 수정합니다.
+        - 커리어 항목은 전체 수정 방식입니다.
+        - `profileCareers`의 각 요소에 `id`가 있으면 해당 항목을 수정하고,
+          `id`가 null이면 새로 추가됩니다.
+        - 기존에 있던 항목 중 전달되지 않은 항목은 삭제됩니다.
+    """)
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "수정 완료"),
             @ApiResponse(responseCode = "400", description = "잘못된 요청")
