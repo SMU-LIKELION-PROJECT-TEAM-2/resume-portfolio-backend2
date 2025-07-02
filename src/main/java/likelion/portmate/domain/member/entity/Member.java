@@ -38,6 +38,14 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false, unique = true)
     private String username;
 
+    private String bannerImageUrl;
+
+    @Column(length = 255)
+    private String address;
+
+    @Column(columnDefinition = "TEXT")
+    private String introduction;
+
     private String externalId;
 
     @Enumerated(STRING)
@@ -106,4 +114,19 @@ public class Member extends BaseTimeEntity {
         return Objects.equals(this.email, email) && !Objects.equals(this.externalId, externalId);
     }
 
+    public void changeUsername(String newUsername) {
+        this.loginId = newUsername;
+    }
+
+    public void changeBannerImageUrl(String bannerImageUrl) {
+        this.bannerImageUrl = bannerImageUrl;
+    }
+
+    public void changeAddress(String address) {
+        this.address = address;
+    }
+
+    public void changeIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 }

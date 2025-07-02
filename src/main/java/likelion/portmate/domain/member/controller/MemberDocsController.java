@@ -8,8 +8,11 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import likelion.portmate.domain.member.dto.request.MemberBannerUpdateRequest;
+import likelion.portmate.domain.member.dto.request.MemberProfileUpdateRequest;
 import likelion.portmate.domain.member.dto.request.MemberSaveRequest;
 import likelion.portmate.domain.member.dto.request.MemberSelectCareerProfileSaveRequest;
+import likelion.portmate.domain.member.dto.response.MemberProfileViewResponse;
 import likelion.portmate.domain.member.dto.response.MemberSaveResponse;
 import likelion.portmate.global.annotation.MemberId;
 import org.springframework.http.ResponseEntity;
@@ -55,4 +58,44 @@ public interface MemberDocsController {
             @RequestBody(description = "커리어 프로필 선택 요청", required = true)
             MemberSelectCareerProfileSaveRequest request
     );
+
+    @Operation(summary = "배너 이미지 변경", description = "배너 이미지 URL만 교체합니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "수정 완료")
+    })
+    ResponseEntity<Void> updateBanner(
+            @MemberId Long memberId,
+            @RequestBody(description = "배너 이미지 수정 DTO", required = true)
+            MemberBannerUpdateRequest request
+    );
+
+    @Operation(summary = "프로필 조회", description = "회원의 이름, 배너, 자기소개, 직무, 기술 스택, 커리어 목록을 조회합니다.")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "조회 성공",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MemberProfileViewResponse.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "존재하지 않는 사용자")
+    })
+    ResponseEntity<MemberProfileViewResponse> getProfile(
+            @Parameter(hidden = true) @MemberId Long memberId
+    );
+
+
+    @Operation(summary = "내 프로필 수정", description = "이름, 자기소개, 주소, 커리어 수정")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "수정 완료"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청")
+    })
+    ResponseEntity<Void> updateProfile(
+            @MemberId Long memberId,
+            @RequestBody(description = "회원 프로필 수정 요청", required = true)
+            MemberProfileUpdateRequest request
+    );
+
+
 }
